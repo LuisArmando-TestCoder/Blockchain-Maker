@@ -1,13 +1,13 @@
 import template from './template.js';
 
-function fillContainerWithEmptyValues(container) {
+function getComponents(container, isContainerSet) {
     const containerType = container.getAttribute('DOMMaker');
     const options = {
         string: `<input type="text" placeholder="string" DOMMaker="string"/>`,
         boolean: `<input type="checkbox" DOMMaker="boolean"/>`,
         number: `<input type="number" placeholder="123" DOMMaker="number"/>`,
         object: `<ul DOMMaker="object"></ul>`,
-        array: `<ul DOMMaker="array"></ul>`
+        array: `<ol DOMMaker="array"></ol>`
     };
     const optionName = `<input DOMMaker type="text" value="value"/>`;
     const emptyValues = template(`
@@ -28,47 +28,82 @@ function fillContainerWithEmptyValues(container) {
         </div>
     `);
 
-    container.appendChild(emptyValues);
+    if(!isContainerSet) container.appendChild(emptyValues);
 
-    const newInput = emptyValues.querySelector('input[DOMMaker]');
-    const newSelect = emptyValues.querySelector('select[DOMMaker]');
+    const input = emptyValues.querySelector('input[DOMMaker]');
+    const select = emptyValues.querySelector('select[DOMMaker]');
     const disabled = () => emptyValues.querySelector('option[disabled]');
+    const components = {
+        containerType,
+        input,
+        options,
+        disabled,
+        container,
+        select
+    };
 
-    function addChild(e, lastValue) {
-        const value = lastValue || e.target.value;
-        console.log(options, value, options[value]);
-        const newElement = template(`
-            <li>
-                <button DOMMaker="delete">Delete</button>
-                ${
-                    containerType === 'object' ?
-                    `<b contenteditable>${newInput.value}</b>` : ''
-                }
-                ${options[value]}
-                <button DOMMaker="duplicate">Duplicate</button>
-            </li>
-        `);
+    return components;
+}
 
-        disabled().selected = true;
+function removeFromDOM(e) {
+    // when a I remove a parent element from the DOM,
+    // do the listeners attached to their children get removed as well?
+    e.target.parentElement.remove();
+    e.target.removeEventListener('click', removeFromDOM);
+};
 
-        container.appendChild(newElement);
+function duplicate(e) {
+    const element = e.target.parentElement;
+    const clone = template(element.outerHTML);
+    const deleteButtons = clone.querySelectorAll('[DOMMaker="delete"]');
+    const duplicateButtons = clone.querySelectorAll('[DOMMaker="duplicate"]');
+    const selects = clone.querySelectorAll('select[DOMMaker]');
+    const components = getComponents(clone, true);
 
-        const deleteButton = newElement.querySelector('[DOMMaker="delete"]');
-        const duplicateButton = newElement.querySelector('[DOMMaker="duplicate"]');
-        const removeFromDOM = () => {
-            newElement.remove();
-            deleteButton.removeEventListener('click', removeFromDOM);
-        };
+    if(selects.length) selects.forEach(select => {
+        select.addEventListener('input', e => addChild(e, Object.assign(components, {
+            container: select.parentElement
+        })), false);
+    });
 
-        duplicateButton.addEventListener('click', () => addChild(null, value));
-        deleteButton.addEventListener('click', removeFromDOM);
+    [...deleteButtons].forEach(btn => btn.addEventListener('click', removeFromDOM));
+    [...duplicateButtons].forEach(btn => btn.addEventListener('click', duplicate));
+    
+    element.parentElement.appendChild(clone);
+};
 
-        [...newElement.querySelectorAll(
-            '[DOMMaker="object"], [DOMMaker="array"]'
-        )].forEach(fillContainerWithEmptyValues);
-    }
-  
-    newSelect.addEventListener('input', addChild, false);
+function addChild(e, components) {
+    const { value } = e.target;
+    const newElement = template(`
+        <li>
+            <button DOMMaker="delete">Delete</button>
+            ${
+                components.containerType === 'object' ?
+                `<b contenteditable>${components.input.value}</b>` : ''
+            }
+            ${components.options[value]}
+            <button DOMMaker="duplicate">Duplicate</button>
+        </li>
+    `);
+
+    components.disabled().selected = true;
+
+    components.container.appendChild(newElement);
+
+    const deleteButton = newElement.querySelector('[DOMMaker="delete"]');
+    const duplicateButton = newElement.querySelector('[DOMMaker="duplicate"]');
+    duplicateButton.addEventListener('click', duplicate);
+    deleteButton.addEventListener('click', removeFromDOM);
+
+    [...newElement.querySelectorAll(
+        '[DOMMaker="object"], [DOMMaker="array"]'
+    )].forEach(fillContainerWithEmptyValues);
+}
+
+function fillContainerWithEmptyValues(container) {
+    const components = getComponents(container);
+
+    components.select.addEventListener('input', e => addChild(e, components), false);
 }
 
 fillContainerWithEmptyValues(document.querySelector('[DOMMaker]'));
