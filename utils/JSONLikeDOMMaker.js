@@ -1,11 +1,6 @@
 import template from './template.js';
 
-const parent = document.querySelector('[DOMMaker]');
-// needs to be array or object at first
-
 function fillContainerWithEmptyValues(container) {
-    // delete field
-    // password, date, phone, location ...(etc data types)
     const containerType = container.getAttribute('DOMMaker');
     const options = {
         string: `<input type="text" placeholder="string" DOMMaker="string"/>`,
@@ -39,16 +34,18 @@ function fillContainerWithEmptyValues(container) {
     const newSelect = emptyValues.querySelector('select[DOMMaker]');
     const disabled = () => emptyValues.querySelector('option[disabled]');
 
-    newSelect.addEventListener('input', e => {
-        const { value } = e.target;
+    function addChild(e, lastValue) {
+        const value = lastValue || e.target.value;
+        console.log(options, value, options[value]);
         const newElement = template(`
             <li>
-                <button>Delete</button>
+                <button DOMMaker="delete">Delete</button>
                 ${
                     containerType === 'object' ?
                     `<b contenteditable>${newInput.value}</b>` : ''
                 }
                 ${options[value]}
+                <button DOMMaker="duplicate">Duplicate</button>
             </li>
         `);
 
@@ -56,18 +53,22 @@ function fillContainerWithEmptyValues(container) {
 
         container.appendChild(newElement);
 
-        const deleteButton = newElement.querySelector('button');
+        const deleteButton = newElement.querySelector('[DOMMaker="delete"]');
+        const duplicateButton = newElement.querySelector('[DOMMaker="duplicate"]');
         const removeFromDOM = () => {
             newElement.remove();
             deleteButton.removeEventListener('click', removeFromDOM);
         };
 
+        duplicateButton.addEventListener('click', () => addChild(null, value));
         deleteButton.addEventListener('click', removeFromDOM);
 
         [...newElement.querySelectorAll(
             '[DOMMaker="object"], [DOMMaker="array"]'
         )].forEach(fillContainerWithEmptyValues);
-    }, false);
+    }
+  
+    newSelect.addEventListener('input', addChild, false);
 }
 
-fillContainerWithEmptyValues(parent);
+fillContainerWithEmptyValues(document.querySelector('[DOMMaker]'));
