@@ -8,9 +8,9 @@ function fillContainerWithEmptyValues(container) {
     // password, date, phone, location ...(etc data types)
     const containerType = container.getAttribute('DOMMaker');
     const options = {
-        string: `<input type="text" value="string" DOMMaker="string"/>`,
+        string: `<input type="text" placeholder="string" DOMMaker="string"/>`,
         boolean: `<input type="checkbox" DOMMaker="boolean"/>`,
-        number: `<input type="number" value="123" DOMMaker="number"/>`,
+        number: `<input type="number" placeholder="123" DOMMaker="number"/>`,
         object: `<ul DOMMaker="object"></ul>`,
         array: `<ul DOMMaker="array"></ul>`
     };
