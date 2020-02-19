@@ -12,7 +12,7 @@ function getComponents(container, isContainerSet) {
     const optionName = `<input DOMMaker type="text" value="value"/>`;
     const emptyValues = template(`
         <div DOMMaker>
-            <p>${containerType === 'object' ? optionName : ''}</p>
+            ${containerType === 'object' ? `<p>${optionName}</p>` : ''}
             <select DOMMaker>
                 <option disabled selected>Choose your value type</option>
                 ${
@@ -53,6 +53,7 @@ function removeFromDOM(e) {
 };
 
 function duplicate(e, treeLevel) {
+    console.log("in duplicate, treeLevel: ", treeLevel);
     const element = e.target.parentElement;
     const clone = template(element.outerHTML);
     const deleteButtons = clone.querySelectorAll('[DOMMaker="delete"]');
@@ -73,6 +74,7 @@ function duplicate(e, treeLevel) {
 };
 
 function addChild(e, components, treeLevel) {
+    console.log("in addChild, treeLevel: ", treeLevel);
     const { value } = e.target;
     const newElement = template(`
         <li DOMMakerTreeLevel="${treeLevel}">
@@ -92,7 +94,15 @@ function addChild(e, components, treeLevel) {
 
     const deleteButton = newElement.querySelector('[DOMMaker="delete"]');
     const duplicateButton = newElement.querySelector('[DOMMaker="duplicate"]');
-    duplicateButton.addEventListener('click', e => duplicate(e, treeLevel));
+    const allTreeLevels = () => components.container.querySelectorAll('[DOMMakerTreeLevel]');
+    const lastTreeLevel = () => +allTreeLevels()[allTreeLevels().length - 1].getAttribute('DOMMakerTreeLevel');
+    console.log("lastTreeLevel: ", lastTreeLevel());
+    duplicateButton.addEventListener('click', e =>
+        duplicate(
+            e, 
+            lastTreeLevel() + 1
+        )
+    );
     deleteButton.addEventListener('click', removeFromDOM);
 
     [...newElement.querySelectorAll(
