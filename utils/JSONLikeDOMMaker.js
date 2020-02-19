@@ -52,7 +52,7 @@ function removeFromDOM(e) {
     e.target.removeEventListener('click', removeFromDOM);
 };
 
-function duplicate(e) {
+function duplicate(e, treeLevel) {
     const element = e.target.parentElement;
     const clone = template(element.outerHTML);
     const deleteButtons = clone.querySelectorAll('[DOMMaker="delete"]');
@@ -63,7 +63,7 @@ function duplicate(e) {
     if(selects.length) selects.forEach(select => {
         select.addEventListener('input', e => addChild(e, Object.assign(components, {
             container: select.parentElement
-        })), false);
+        }), treeLevel), false);
     });
 
     [...deleteButtons].forEach(btn => btn.addEventListener('click', removeFromDOM));
@@ -72,10 +72,10 @@ function duplicate(e) {
     element.parentElement.appendChild(clone);
 };
 
-function addChild(e, components) {
+function addChild(e, components, treeLevel) {
     const { value } = e.target;
     const newElement = template(`
-        <li>
+        <li DOMMakerTreeLevel="${treeLevel}">
             <button DOMMaker="delete">Delete</button>
             ${
                 components.containerType === 'object' ?
@@ -92,18 +92,18 @@ function addChild(e, components) {
 
     const deleteButton = newElement.querySelector('[DOMMaker="delete"]');
     const duplicateButton = newElement.querySelector('[DOMMaker="duplicate"]');
-    duplicateButton.addEventListener('click', duplicate);
+    duplicateButton.addEventListener('click', e => duplicate(e, treeLevel));
     deleteButton.addEventListener('click', removeFromDOM);
 
     [...newElement.querySelectorAll(
         '[DOMMaker="object"], [DOMMaker="array"]'
-    )].forEach(fillContainerWithEmptyValues);
+    )].forEach(e => fillContainerWithEmptyValues(e, treeLevel));
 }
 
-function fillContainerWithEmptyValues(container) {
+function fillContainerWithEmptyValues(container, treeLevel = 0) {
     const components = getComponents(container);
 
-    components.select.addEventListener('input', e => addChild(e, components), false);
+    components.select.addEventListener('input', e => addChild(e, components, treeLevel + 1), false);
 }
 
 fillContainerWithEmptyValues(document.querySelector('[DOMMaker]'));
