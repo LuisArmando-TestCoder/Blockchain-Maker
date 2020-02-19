@@ -1,0 +1,32 @@
+:root {
+  --c1: #ffffff;
+  --c2: #00bee1;
+  --c3: #1569ac;
+  --c4: #2641b2;
+  --c5: #03256c;
+}
+
+[DOMMaker='duplicate'] {
+}
+[DOMMaker='boolean'] {
+}
+[DOMMaker='string'] {
+}
+[DOMMaker='number'] {
+}
+[DOMMaker='object'] {
+}
+[DOMMaker='delete'] {
+}
+[DOMMaker='array'] {
+}
+[DOMMaker] li {
+}
+[DOMMaker] li:nth-child(2n) {
+}
+[DOMMaker] li b[contenteditable] {
+}
+select[DOMMaker] {
+}
+div[DOMMaker] {
+}
