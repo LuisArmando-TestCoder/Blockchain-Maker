@@ -1,4 +1,4 @@
-const getDOMMakerData = document.getElementById('getDOMMakerData');
+const getDOMMakerDataButton = document.getElementById('getDOMMakerData');
 
 function getDOMMakerInput(container) {
     const string = container.querySelector('[DOMMaker="string"]');
@@ -8,26 +8,44 @@ function getDOMMakerInput(container) {
     return boolean || number || string;
 }
 
+function getParentTreeLevel(element) {
+  return element ? +element.parentElement.getAttribute('DOMMakerTreeLevel') : Infinity;
+}
+
+function getAlternativeChild(container) {
+    const getDOMMaker = type => container.querySelector(`[DOMMaker=${type}]`);
+    const object = getDOMMaker('object');
+    const array = getDOMMaker('array');
+    const objectLevel = getParentTreeLevel(object);
+    const arrayLevel = getParentTreeLevel(array);
+  
+    return objectLevel < arrayLevel ? object : array;
+}
+
+function getDOMMakerWrapper(container) {
+    const wrapper = ['object', 'array'].includes(
+                      container.getAttribute('DOMMaker')
+                    ) && container ||
+                    getAlternativeChild(container);
+  
+    return wrapper;
+}
+
 function getContainerType(container) {
-    const object = container.querySelector('[DOMMaker="object"]');
-    const array = container.querySelector('[DOMMaker="array"]');
     const element = (
-        array || object || getDOMMakerInput(container) || container
+        getDOMMakerWrapper(container) || getDOMMakerInput(container)
     );
     const containerType = element.getAttribute('DOMMaker');
-    console.log("element", element);
-    console.log("containerType", containerType);
     return containerType;
 }
 
 function getDataByType(type, container) {
     const input = getDOMMakerInput(container);
-    // console.log('getDataByType input', input);
     return ({
         object: {},
         array: [],
         string: input && input.value,
-        number: input && input.value,
+        number: input && +input.value,
         boolean: input && input.checked,
     })[type];
 }
@@ -37,16 +55,24 @@ function getDataName(container) {
     return dataNameElement ? dataNameElement.innerText : '';
 }
 
-function JSONLikeDOMTaker(container, parentData) {
+function getContainerChildren(container) {
     const treeIndex = container.getAttribute('DOMMakerTreeLevel');
     const children = container.querySelectorAll(`[DOMMakerTreeLevel="${treeIndex}"] > li`);
+    const inmediateChildren = container.querySelectorAll(`[DOMMakerTreeLevel="${treeIndex}"] > [DOMMaker] > li`);
+
+    return children.length && children
+           || inmediateChildren.length && inmediateChildren;
+}
+
+function JSONLikeDOMTaker(container, parentData) {
+    const children = getContainerChildren(container);
     const type = getContainerType(container);
     const data = getDataByType(type, container);
     const name = getDataName(container);
 
-    if (typeof parentData === 'object' && parentData.length) { // parentData is an array
+    if (Array.isArray(parentData)) { // watch out
         parentData.push(data);
-    } else if (parentData) { // parentData is an object
+    } else if (typeof parentData === 'object') {
         parentData[name] = data;
     }
 
@@ -54,17 +80,12 @@ function JSONLikeDOMTaker(container, parentData) {
         JSONLikeDOMTaker(child, data);
     });
 
-    // console.log('container', container);
-    // console.log('type', type);
-    // console.log('data', data);
-    // console.log('name', name);
-    // console.log('children', children);
-
     return data;
 }
 
-getDOMMakerData.addEventListener('click', e => 
+getDOMMakerDataButton.addEventListener('click', e => 
     console.log(
+        'JSONLikeDOMTaker',
         JSONLikeDOMTaker(
             document.querySelector('[DOMMaker]')
         )
