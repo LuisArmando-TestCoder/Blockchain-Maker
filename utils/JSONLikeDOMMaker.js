@@ -53,7 +53,6 @@ function removeFromDOM(e) {
 };
 
 function duplicate(e, treeLevel) {
-    // console.log("in duplicate, treeLevel: ", treeLevel);
     const element = e.target.parentElement;
     const clone = template(element.outerHTML);
     const deleteButtons = clone.querySelectorAll('[DOMMaker="delete"]');
@@ -74,7 +73,6 @@ function duplicate(e, treeLevel) {
 };
 
 function addChild(e, components, treeLevel) {
-    // console.log("in addChild, treeLevel: ", treeLevel);
     const { value } = e.target;
     const newElement = template(`
         <li DOMMakerTreeLevel="${treeLevel}">
@@ -96,7 +94,6 @@ function addChild(e, components, treeLevel) {
     const duplicateButton = newElement.querySelector('[DOMMaker="duplicate"]');
     const allTreeLevels = () => components.container.querySelectorAll('[DOMMakerTreeLevel]');
     const lastTreeLevel = () => +allTreeLevels()[allTreeLevels().length - 1].getAttribute('DOMMakerTreeLevel');
-    // console.log("lastTreeLevel: ", lastTreeLevel());
     duplicateButton.addEventListener('click', e =>
         duplicate(
             e, 
