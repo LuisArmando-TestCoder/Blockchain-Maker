@@ -11,6 +11,9 @@
 }
 body {
   margin: 0;
+  background: url(https://images.pexels.com/photos/1019980/pexels-photo-1019980.jpeg?auto=compress&cs=tinysrgb&h=1250) center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 ul,
 ol {
@@ -18,6 +21,7 @@ ol {
   padding: 0;
   list-style: none;
   display: grid;
+  background: var(--c4);
 }
 pre {
   background: var(--c4);
@@ -26,7 +30,6 @@ pre {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-left: auto;
-  background: var(--c1);
   padding: var(--primary-spacing) 0;
   height: 100vh;
   overflow: auto;
@@ -39,12 +42,15 @@ pre {
 }
 .get-DOM-Maker-Data {
   padding: 15px 30px;
-  margin: var(--primary-spacing);
+  background: #f08802;
+  color: #fff;
+  margin: 6px var(--primary-spacing);
   position: sticky;
   border: 0;
-  background: #fee;
   font-weight: bold;
   text-transform: uppercase;
+  position: fixed;
+  right: 0;
 }
 .DOM-Maker-Wrapper > * {
   
@@ -54,7 +60,7 @@ button[DOMMaker] {
   border: 0;
   font-size: 14px;
   font-weight: bold;
-  margin:  0 25px;
+  margin:  0 var(--primary-spacing);
   margin-left: -1px;
 }
 button[DOMMaker],
@@ -74,6 +80,7 @@ select[DOMMaker] {
   font-size: 18px;
   padding: 10px 0;
   color: var(--c3);
+  background: transparent;
 }
 select[DOMMaker],
 input[DOMMaker],
@@ -101,7 +108,7 @@ select[DOMMaker] * {
   color: var(--c3);
 }
 [DOMMakerTreeLevel='0'] {
-  padding: 0 0 0 25px;
+  padding: 0 0 0 var(--primary-spacing);
 }
 [DOMMaker='string'] {
 }
@@ -144,18 +151,17 @@ select[DOMMaker] * {
   padding-bottom: var(--primary-spacing);
 }
 [DOMMaker] li {
-  padding: 25px;
+  padding: var(--primary-spacing);
   margin: 50px 0 0;
-  background: var(--c2);
   border: 0;
-  box-shadow: 0 0 100px -25px var(--c1);
+  box-shadow: 0 0 100px calc(var(--primary-spacing) * -1) var(--c1);
   display: grid;
 }
 [DOMMaker] li:nth-child(2n) {
 }
 [DOMMaker] b[contenteditable] {
   padding: 17px 0;
-  margin-right: 25px;
+  margin-right: var(--primary-spacing);
 }
 [DOMMaker="object"] > li {
   grid-template-columns: 2fr 1fr 1fr 21fr;
@@ -175,4 +181,5 @@ select[DOMMaker] * {
 [DOMMaker] *:focus {
   outline: none;
   text-decoration: underline;
+  color: var(--c3);
 }
