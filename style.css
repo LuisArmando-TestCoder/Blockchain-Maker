@@ -6,15 +6,12 @@
   --delete: #f20;
   --primary-spacing: 25px;
 }
-
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
 }
-
 ul,
 ol {
   margin: 0;
@@ -34,9 +31,6 @@ pre {
   height: 100vh;
   overflow: auto;
 }
-.DOM-Maker-Wrapper > * {
-  
-}
 .DOM-Maker-Wrapper__title {
   margin: 0;
   font-family: sans-serif;
@@ -52,20 +46,16 @@ pre {
   font-weight: bold;
   text-transform: uppercase;
 }
+.DOM-Maker-Wrapper > * {
+  
+}
 button[DOMMaker] {
   padding: 15px 30px;
   border: 0;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
-  margin: 25px 0 15px;
+  margin:  0 25px;
   margin-left: -1px;
-}
-[DOMMaker] li {
-  padding: 25px 0 15px 25px;
-  margin: 25px 0 5px;
-  background: var(--c2);
-  border: 0;
-  box-shadow: 0 0 100px -25px var(--c1);
 }
 button[DOMMaker],
 [DOMMaker] b[contenteditable],
@@ -79,49 +69,39 @@ button[DOMMaker]:hover,
 .get-DOM-Maker-Data:hover {
   opacity: 1;
 }
-[DOMMaker] b[contenteditable] {
-  font-family: sans-serif;
-  font-weight: bold;
-  padding-bottom: var(--primary-spacing);
-}
-[DOMMaker] li:nth-child(2n) {
-}
-[DOMMaker] li b[contenteditable] {
-}
 select[DOMMaker] {
   border: 0;
   font-size: 18px;
-  padding: 15px 25px;
+  padding: 10px 0;
   color: var(--c3);
 }
-
 select[DOMMaker],
-input[DOMMaker] {
-  width: calc(100% - 25px);
-}
-
-select[DOMMaker] * {
-  font-size: 16px;
-  color: var(--c3);
+input[DOMMaker],
+button[DOMMaker] {
+  max-height: 60px;
 }
 input[DOMMaker] {
-  padding: 10px 0px 5px;
-  border: solid var(--c3);
+  border: 0;
   background: transparent;
-  border-width: 0 0 5px 0;
-  color: var(--c3);
+  color: var(--c1);
   font-weight: bold;
   font-size: 20px;
   display: block;
+  margin: 0 25px;
 }
 div[DOMMaker] {
-}
-[DOMMakerTreeLevel='0'] {
-  padding: 0 0 0 25px;
+  display: flex;
 }
 input[DOMMaker='boolean'] {
   display: inline-block;
   width: auto;
+}
+select[DOMMaker] * {
+  font-size: 16px;
+  color: var(--c3);
+}
+[DOMMakerTreeLevel='0'] {
+  padding: 0 0 0 25px;
 }
 [DOMMaker='string'] {
 }
@@ -139,7 +119,60 @@ input[DOMMaker='boolean'] {
 [DOMMaker='delete'],
 [DOMMaker='duplicate'] {
   display: block;
-  width: calc(100% - 25px);
 }
 [DOMMaker='array'] {
+}
+[DOMMaker='boolean'] {
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  &:hover {
+    color: var(--c3);
+  }
+}
+[DOMMaker='boolean']::after {
+  content: 'False';
+  padding: 15px 0;
+  display: block;
+}
+[DOMMaker='boolean']:checked::after {
+  content: 'True';
+}
+[DOMMaker] b[contenteditable] {
+  font-family: sans-serif;
+  font-weight: bold;
+  padding-bottom: var(--primary-spacing);
+}
+[DOMMaker] li {
+  padding: 25px;
+  margin: 50px 0 0;
+  background: var(--c2);
+  border: 0;
+  box-shadow: 0 0 100px -25px var(--c1);
+  display: grid;
+}
+[DOMMaker] li:nth-child(2n) {
+}
+[DOMMaker] b[contenteditable] {
+  padding: 17px 0;
+  margin-right: 25px;
+}
+[DOMMaker="object"] > li {
+  grid-template-columns: 2fr 1fr 1fr 21fr;
+}
+[DOMMaker="array"] > li {
+  grid-template-columns: 1fr 1fr 23fr;
+}
+[DOMMaker="object"] li li {
+  margin-left: -338px;
+}
+[DOMMaker="array"] li li {
+  margin-left: -273px;
+}
+[DOMMakerTreeLevel="1"] > [DOMMaker] > li {
+  margin-left: -338px;
+}
+[DOMMaker] *:focus {
+  outline: none;
+  text-decoration: underline;
 }
