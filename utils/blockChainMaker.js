@@ -51,7 +51,7 @@ class getBlockchain {
 }
 
 // console.clear();
-// const bc = new getBlockchain('Testcoder');
-// bc.setBlock([73]);
-// bc.setBlock([42]);
-// console.log(bc.chain);
+const bc = new getBlockchain('Testcoder');
+bc.setBlock([73]);
+bc.setBlock([42]);
+console.log(bc.chain);

@@ -1,14 +1,121 @@
 :root {
-  --c1: #ffffff;
-  --c2: #00bee1;
-  --c3: #1569ac;
-  --c4: #2641b2;
-  --c5: #03256c;
+  --c1: #3183be66;
+  --c2: #fff3;
+  --c3: #09f;
+  --c4: #f0f0f0;
+  --delete: #f20;
+  --primary-spacing: 25px;
 }
 
-[DOMMaker='duplicate'] {
+* {
+  box-sizing: border-box;
 }
-[DOMMaker='boolean'] {
+
+body {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+.DOM-Maker-Wrapper {
+  max-width: 1200px;
+  min-width: 320px;
+  width: 50%;
+  margin-left: auto;
+  background: var(--c1);
+  padding: var(--primary-spacing) 0;
+  min-height: 100vh;
+}
+.DOM-Maker-Wrapper__title {
+  margin: 0;
+  font-family: sans-serif;
+  opacity: 0.6;
+  padding-left: var(--primary-spacing);
+}
+.get-DOM-Maker-Data {
+  padding: 15px 30px;
+  margin: var(--primary-spacing);
+  position: sticky;
+  border: 0;
+  background: #fee;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+button[DOMMaker] {
+  padding: 15px 30px;
+  border: 0;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 25px 0 15px;
+  margin-left: -1px;
+}
+[DOMMaker] li {
+  padding: 25px 0 15px 25px;
+  margin: 25px 0 5px;
+  background: var(--c2);
+  border: 0;
+  box-shadow: 0 0 100px -25px var(--c1);
+}
+button[DOMMaker],
+[DOMMaker] b[contenteditable],
+.get-DOM-Maker-Data {
+  opacity: 0.6;
+  cursor: pointer;
+  transition: 0.35s;
+}
+button[DOMMaker]:hover,
+[DOMMaker] b[contenteditable]:hover,
+.get-DOM-Maker-Data:hover {
+  opacity: 1;
+}
+[DOMMaker] b[contenteditable] {
+  font-family: sans-serif;
+  font-weight: bold;
+  padding-bottom: var(--primary-spacing);
+}
+[DOMMaker] li:nth-child(2n) {
+}
+[DOMMaker] li b[contenteditable] {
+}
+select[DOMMaker] {
+  border: 0;
+  font-size: 18px;
+  padding: 15px 25px;
+  color: var(--c3);
+}
+
+select[DOMMaker],
+input[DOMMaker] {
+  width: calc(100% - 25px);
+}
+
+select[DOMMaker] * {
+  font-size: 16px;
+  color: var(--c3);
+}
+input[DOMMaker] {
+  padding: 10px 0px 5px;
+  border: solid var(--c3);
+  background: transparent;
+  border-width: 0 0 5px 0;
+  color: var(--c3);
+  font-weight: bold;
+  font-size: 20px;
+  display: block;
+}
+div[DOMMaker] {
+}
+[DOMMakerTreeLevel='0'] {
+  padding: 0 0 0 25px;
+}
+input[DOMMaker='boolean'] {
+  display: inline-block;
+  width: auto;
 }
 [DOMMaker='string'] {
 }
@@ -17,16 +124,16 @@
 [DOMMaker='object'] {
 }
 [DOMMaker='delete'] {
+  color: var(--c4);
+  background: var(--delete);
+}
+[DOMMaker='duplicate'] {
+  background: var(--c1);
+}
+[DOMMaker='delete'],
+[DOMMaker='duplicate'] {
+  display: block;
+  width: calc(100% - 25px);
 }
 [DOMMaker='array'] {
-}
-[DOMMaker] li {
-}
-[DOMMaker] li:nth-child(2n) {
-}
-[DOMMaker] li b[contenteditable] {
-}
-select[DOMMaker] {
-}
-div[DOMMaker] {
 }
