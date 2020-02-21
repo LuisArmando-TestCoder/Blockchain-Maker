@@ -22,14 +22,20 @@ ol {
   list-style: none;
   display: grid;
 }
+pre {
+  background: var(--c4);
+}
 .DOM-Maker-Wrapper {
-  max-width: 1200px;
-  min-width: 320px;
-  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin-left: auto;
   background: var(--c1);
   padding: var(--primary-spacing) 0;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
+}
+.DOM-Maker-Wrapper > * {
+  
 }
 .DOM-Maker-Wrapper__title {
   margin: 0;
