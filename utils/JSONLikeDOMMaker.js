@@ -80,9 +80,9 @@ function addChild(e, components, treeLevel) {
                 components.containerType === 'object' ?
                 `<b contenteditable>${components.input.value}</b>` : ''
             }
-            ${components.options[value]}
-            <button DOMMaker="delete">Delete</button>
             <button DOMMaker="duplicate">Duplicate</button>
+            <button DOMMaker="delete">Delete</button>
+            ${components.options[value]}
         </li>
     `);
 
