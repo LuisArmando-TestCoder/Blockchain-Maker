@@ -8,12 +8,12 @@
   --primary-spacing: 25px;
   --background-image: url(https://images.pexels.com/photos/1019980/pexels-photo-1019980.jpeg?auto=compress&cs=tinysrgb&h=1250);
 }
-* {
+body * {
   box-sizing: border-box;
+  font-family: monospace !important;
 }
 body {
   background: var(--c1);
-  font-family: var(--primary-font);
 }
 ul,
 ol {
@@ -49,7 +49,6 @@ ol {
   top: 0;
 }
 .JSONData-label, .get-DOM-Maker-Data {
-  font-family: var(--primary-font);
   color: var(--c3);
   text-shadow: 0 0 10px var(--c3);
   text-transform: uppercase;
