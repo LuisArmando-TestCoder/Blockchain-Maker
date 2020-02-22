@@ -33,21 +33,36 @@ ol {
   transition: 0.5s;
   position: fixed;
   bottom: 0;
-  &:focus {
-    height: 50vh;
-    padding: 25px;
-  }
+}
+.JSONData:focus {
+  height: 50vh;
+  padding: 25px;
+}
+.JSONData:focus {
+  height: 50vh;
+  padding: 25px;
 }
 .JSONData-label {
-  color: var(--c4);
-  text-shadow: 0 0 15px #000;
+  color: var(--c3);
+  text-shadow: 0 0 10px var(--c3);
   text-transform: uppercase;
+  font-weight: bold;
   font-family: sans-serif;
   position: fixed;
   bottom: 0;
   right: 0;
   margin: 5px 25px;
   cursor: pointer;
+}
+.JSONData-label span {
+  transition: 0.25s;
+  position: relative;
+  left: 0;
+}
+.JSONData-label:focus span,
+.JSONData-label:hover span {
+  display: inline-block;
+  left: 10px;
 }
 .DOM-Maker-Wrapper {
   display: grid;
@@ -74,6 +89,7 @@ ol {
   text-transform: uppercase;
   position: fixed;
   right: 0;
+  top: 0;
 }
 .DOM-Maker-Wrapper > * {
   

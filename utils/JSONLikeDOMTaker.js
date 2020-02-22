@@ -1,4 +1,9 @@
+import blockchain from './blockChainMaker.js';
+
 const getDOMMakerDataButton = document.getElementById('getDOMMakerData');
+const pushToBlockchainButton = document.getElementById('pushToBlockchain');
+const JSONDataTextarea = document.getElementById('JSONData');
+const blockchainDataTextarea = document.getElementById('blockchainData');
 
 function getDOMMakerInput(container) {
     const string = container.querySelector('[DOMMaker="string"]');
@@ -9,7 +14,7 @@ function getDOMMakerInput(container) {
 }
 
 function getParentTreeLevel(element) {
-  return element ? +element.parentElement.getAttribute('DOMMakerTreeLevel') : Infinity;
+    return element ? +element.parentElement.getAttribute('DOMMakerTreeLevel') : Infinity;
 }
 
 function getAlternativeChild(container) {
@@ -18,16 +23,16 @@ function getAlternativeChild(container) {
     const array = getDOMMaker('array');
     const objectLevel = getParentTreeLevel(object);
     const arrayLevel = getParentTreeLevel(array);
-  
+
     return objectLevel < arrayLevel ? object : array;
 }
 
 function getDOMMakerWrapper(container) {
     const wrapper = ['object', 'array'].includes(
-                      container.getAttribute('DOMMaker')
-                    ) && container ||
-                    getAlternativeChild(container);
-  
+            container.getAttribute('DOMMaker')
+        ) && container ||
+        getAlternativeChild(container);
+
     return wrapper;
 }
 
@@ -60,8 +65,8 @@ function getContainerChildren(container) {
     const children = container.querySelectorAll(`[DOMMakerTreeLevel="${treeIndex}"] > li`);
     const inmediateChildren = container.querySelectorAll(`[DOMMakerTreeLevel="${treeIndex}"] > [DOMMaker] > li`);
 
-    return children.length && children
-           || inmediateChildren.length && inmediateChildren;
+    return children.length && children ||
+        inmediateChildren.length && inmediateChildren;
 }
 
 function JSONLikeDOMTaker(container, parentData) {
@@ -76,18 +81,25 @@ function JSONLikeDOMTaker(container, parentData) {
         parentData[name] = data;
     }
 
-    if (children.length) [...children].forEach(child => {
+    if (children.length)[...children].forEach(child => {
         JSONLikeDOMTaker(child, data);
     });
 
     return data;
 }
 
-getDOMMakerDataButton.addEventListener('click', e => 
-    console.log(
-        'JSONLikeDOMTaker',
-        JSONLikeDOMTaker(
-            document.querySelector('[DOMMaker]')
-        )
-    )
-);
+getDOMMakerDataButton.addEventListener('click', e => {
+    const data = JSONLikeDOMTaker(
+        document.querySelector('[DOMMaker]')
+    );
+    JSONDataTextarea.innerHTML = JSON.stringify(data, null, 4);
+    JSONDataTextarea.focus();
+});
+
+pushToBlockchainButton.addEventListener('click', e => {
+    const data = JSONLikeDOMTaker(
+        document.querySelector('[DOMMaker]')
+    );
+    blockchain.setBlock(data);
+    blockchainDataTextarea.innerHTML = JSON.stringify(blockchain.chain, null, 4);
+});
