@@ -1,8 +1,9 @@
 :root {
   --c1: #3183be66;
   --c2: #fff3;
-  --c3: #09f;
+  --c3: #0f0;
   --c4: #f0f0f0;
+  --primary-font: monospace;
   --delete: #f20;
   --primary-spacing: 25px;
   --background-image: url(https://images.pexels.com/photos/1019980/pexels-photo-1019980.jpeg?auto=compress&cs=tinysrgb&h=1250);
@@ -11,21 +12,16 @@
   box-sizing: border-box;
 }
 body {
-  margin: 0;
-  background: var(--background-image) center;
-  background-size: cover;
-  background-attachment: fixed;
+  background: #101010;
+  font-family: var(--primary-font);
 }
 ul,
 ol {
-  margin: 0;
-  padding: 0;
   list-style: none;
-  display: grid;
-  background: var(--c4);
+  color: var(--c3);
 }
 .JSONData {
-  background: var(--c4);
+  background: var(--c3);
   width: 100%;
   height: 0;
   border: 0;
@@ -33,6 +29,7 @@ ol {
   transition: 0.5s;
   position: fixed;
   bottom: 0;
+  left: 0;
 }
 .JSONData:focus {
   height: 50vh;
@@ -43,6 +40,7 @@ ol {
   padding: 25px;
 }
 .JSONData-label {
+  font-family: var(--primary-font);
   color: var(--c3);
   text-shadow: 0 0 10px var(--c3);
   text-transform: uppercase;
@@ -64,161 +62,117 @@ ol {
   display: inline-block;
   left: 10px;
 }
-.DOM-Maker-Wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-left: auto;
-  padding: var(--primary-spacing) 0;
-  height: 100vh;
-  overflow: auto;
-}
-.DOM-Maker-Wrapper__title {
-  margin: 0;
-  font-family: sans-serif;
-  opacity: 0.6;
-  padding-left: var(--primary-spacing);
-}
-.get-DOM-Maker-Data {
-  padding: 15px 30px;
-  background: #f08802;
-  color: #fff;
-  margin: 6px var(--primary-spacing);
-  position: sticky;
-  border: 0;
-  font-weight: bold;
-  text-transform: uppercase;
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-.DOM-Maker-Wrapper > * {
-  
-}
-button[DOMMaker] {
-  padding: 15px 30px;
-  border: 0;
-  font-size: 14px;
-  font-weight: bold;
-  margin:  0 var(--primary-spacing);
-  margin-left: -1px;
-}
-button[DOMMaker],
-[DOMMaker] b[contenteditable],
-.get-DOM-Maker-Data {
-  opacity: 0.6;
-  cursor: pointer;
-  transition: 0.35s;
-}
-button[DOMMaker]:hover,
-[DOMMaker] b[contenteditable]:hover,
-.get-DOM-Maker-Data:hover {
-  opacity: 1;
-}
-select[DOMMaker] {
-  border: 0;
-  font-size: 18px;
-  padding: 10px 0;
-  color: var(--c3);
-  background: transparent;
-}
-select[DOMMaker],
-input[DOMMaker],
-button[DOMMaker] {
-  max-height: 60px;
-}
-input[DOMMaker] {
-  border: 0;
-  background: transparent;
-  color: var(--c1);
-  font-weight: bold;
-  font-size: 20px;
-  display: block;
-  margin: 0 25px;
+li[DOMMakerTreeLevel] {
+  padding: 5px 0;
 }
 div[DOMMaker] {
-  display: flex;
+  padding-left: 44px;
 }
-input[DOMMaker='boolean'] {
-  display: inline-block;
-  width: auto;
-}
-select[DOMMaker] * {
-  font-size: 16px;
+button[DOMMaker] {
   color: var(--c3);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }
-[DOMMakerTreeLevel='0'] {
-  padding: 0 0 0 var(--primary-spacing);
+button[DOMMaker]:hover,
+input[DOMMaker]:hover,
+b[contenteditable]:hover {
+  text-decoration: underline;
 }
-[DOMMaker='string'] {
+select[DOMMaker] {
+  color: var(--c3);
+  background: transparent;
+  border: 0;
 }
-[DOMMaker='number'] {
+input[DOMMaker] {
+  color: var(--c3);
+  background: transparent;
+  border: 0;
 }
-[DOMMaker='object'] {
+input[DOMMaker]::after {
+  content: "\",";
 }
-[DOMMaker='delete'] {
-  color: var(--c4);
-  background: var(--delete);
+input[DOMMaker='boolean']::after {
+  content: 'False,';
 }
-[DOMMaker='duplicate'] {
-  background: var(--c1);
+input[DOMMaker='boolean']:checked::after {
+  content: 'True,';
 }
-[DOMMaker='delete'],
-[DOMMaker='duplicate'] {
-  display: block;
+[dommakertreelevel="0"] {
+  padding-left: 0;
 }
-[DOMMaker='array'] {
+[DOMMaker="string"]::before,
+[DOMMaker="string"]::after {
+  content: "\",";
+}
+[DOMMaker='object']::before {
+  content: '{';
+}
+[DOMMaker='object']::after {
+  content: '}';
+}
+[DOMMaker='array']::before {
+  content: '[';
+}
+[DOMMaker='array']::after {
+  content: ']';
+}
+[DOMMaker] > p {
+  display: none;
 }
 [DOMMaker='boolean'] {
   width: 0;
-  height: 0;
   cursor: pointer;
-  &:hover {
-    color: var(--c3);
-  }
 }
-[DOMMaker='boolean']::after {
-  content: 'False';
-  padding: 15px 0;
-  display: block;
+[DOMMaker='delete'] {
+  /* color: var(--3);
+  background: var(--delete); */
 }
-[DOMMaker='boolean']:checked::after {
-  content: 'True';
+[DOMMaker='duplicate'] {
+  /* background: var(--c1); */
 }
-[DOMMaker] b[contenteditable] {
-  font-family: sans-serif;
-  font-weight: bold;
-  padding-bottom: var(--primary-spacing);
+[DOMMaker='delete'],
+[DOMMaker='duplicate'] {
+  /* display: block; */
+}
+[DOMMaker='array'] {
+}
+[DOMMaker] b[contenteditable]::before {
+  content: "\"";
+}
+[DOMMaker] b[contenteditable]::after {
+  content: "\":";
 }
 [DOMMaker] li {
-  padding: var(--primary-spacing);
+  /* padding: var(--primary-spacing);
   margin: 50px 0 0;
   border: 0;
   box-shadow: 0 0 100px calc(var(--primary-spacing) * -1) var(--c1);
-  display: grid;
+  display: grid; */
 }
 [DOMMaker] li:nth-child(2n) {
 }
 [DOMMaker] b[contenteditable] {
-  padding: 17px 0;
-  margin-right: var(--primary-spacing);
+  /* padding: 17px 0;
+  margin-right: var(--primary-spacing); */
 }
 [DOMMaker="object"] > li {
-  grid-template-columns: 2fr 1fr 1fr 21fr;
+  /* grid-template-columns: 2fr 1fr 1fr 21fr; */
 }
 [DOMMaker="array"] > li {
-  grid-template-columns: 1fr 1fr 23fr;
+  /* grid-template-columns: 1fr 1fr 23fr; */
 }
 [DOMMaker="object"] li li {
-  margin-left: -338px;
+  /* margin-left: -338px; */
 }
 [DOMMaker="array"] li li {
-  margin-left: -273px;
+  /* margin-left: -273px; */
 }
 [DOMMakerTreeLevel="1"] > [DOMMaker] > li {
-  margin-left: -338px;
+  /* margin-left: -338px; */
 }
 [DOMMaker] *:focus {
-  outline: none;
+  /* outline: none;
   text-decoration: underline;
-  color: var(--c3);
+  color: var(--c3); */
 }

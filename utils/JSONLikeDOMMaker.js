@@ -76,12 +76,12 @@ function addChild(e, components, treeLevel) {
     const { value } = e.target;
     const newElement = template(`
         <li DOMMakerTreeLevel="${treeLevel}">
+            <button DOMMaker="delete">-</button>
+            <button DOMMaker="duplicate">+</button>
             ${
                 components.containerType === 'object' ?
                 `<b contenteditable>${components.input.value}</b>` : ''
             }
-            <button DOMMaker="duplicate">Duplicate</button>
-            <button DOMMaker="delete">Delete</button>
             ${components.options[value]}
         </li>
     `);
