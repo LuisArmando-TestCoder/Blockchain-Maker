@@ -107,18 +107,23 @@ input[DOMMaker] {
   color: var(--c4);
   background: transparent;
   border: 0;
+  display: inline-block;
 }
-input[DOMMaker]::before {
+[DOMMaker="boolean"] {
+  width: 0;
+  cursor: pointer;
+}
+[DOMMaker="boolean"]::after {
+  content: "False,";
+}
+[DOMMaker="boolean"]:checked::after {
+  content: "True,";
+}
+[DOMMaker="string"]::before {
   content: "\"";
 }
-input[DOMMaker]::after {
+[DOMMaker="string"]::after {
   content: "\",";
-}
-input[DOMMaker="boolean"]::after {
-  content: "False\",";
-}
-input[DOMMaker="boolean"]:checked::after {
-  content: "True\",";
 }
 [dommakertreelevel="0"] {
   padding-left: 0;
@@ -138,59 +143,9 @@ input[DOMMaker="boolean"]:checked::after {
 [DOMMaker] > p {
   display: none;
 }
-[DOMMaker="boolean"] {
-  width: 0;
-  cursor: pointer;
-}
-[DOMMaker="delete"] {
-  /* color: var(--3);
-  background: var(--delete); */
-}
-[DOMMaker="duplicate"] {
-  /* background: var(--c1); */
-}
-[DOMMaker="delete"],
-[DOMMaker="duplicate"] {
-  /* display: block; */
-}
-[DOMMaker="array"] {
-}
 [DOMMaker] b[contenteditable]::before {
   content: "\"";
 }
 [DOMMaker] b[contenteditable]::after {
   content: "\":";
-}
-[DOMMaker] li {
-  /* padding: var(--primary-spacing);
-  margin: 50px 0 0;
-  border: 0;
-  box-shadow: 0 0 100px calc(var(--primary-spacing) * -1) var(--c1);
-  display: grid; */
-}
-[DOMMaker] li:nth-child(2n) {
-}
-[DOMMaker] b[contenteditable] {
-  /* padding: 17px 0;
-  margin-right: var(--primary-spacing); */
-}
-[DOMMaker="object"] > li {
-  /* grid-template-columns: 2fr 1fr 1fr 21fr; */
-}
-[DOMMaker="array"] > li {
-  /* grid-template-columns: 1fr 1fr 23fr; */
-}
-[DOMMaker="object"] li li {
-  /* margin-left: -338px; */
-}
-[DOMMaker="array"] li li {
-  /* margin-left: -273px; */
-}
-[DOMMakerTreeLevel="1"] > [DOMMaker] > li {
-  /* margin-left: -338px; */
-}
-[DOMMaker] *:focus {
-  /* outline: none;
-  text-decoration: underline;
-  color: var(--c3); */
 }
