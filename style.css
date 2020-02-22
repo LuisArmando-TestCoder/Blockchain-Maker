@@ -109,6 +109,9 @@ input[DOMMaker] {
   border: 0;
   display: inline-block;
 }
+[DOMMaker] > p {
+  display: none;
+}
 [DOMMaker="boolean"] {
   width: 0;
   cursor: pointer;
