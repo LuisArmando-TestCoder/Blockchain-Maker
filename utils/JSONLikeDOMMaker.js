@@ -3,9 +3,9 @@ import template from './template.js';
 function getComponents(container, isContainerSet) {
     const containerType = container.getAttribute('DOMMaker');
     const options = {
-        string: `<input type="text" placeholder="string" DOMMaker="string"/>`,
-        boolean: `<input type="checkbox" DOMMaker="boolean"/>`,
+        string: `<b type="text" placeholder="string" DOMMaker="string" contenteditable></b>`,
         number: `<input type="number" placeholder="123" DOMMaker="number"/>`,
+        boolean: `<input type="checkbox" DOMMaker="boolean"/>`,
         object: `<ul DOMMaker="object"></ul>`,
         array: `<ol DOMMaker="array"></ol>`
     };

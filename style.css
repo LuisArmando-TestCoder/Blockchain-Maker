@@ -140,12 +140,18 @@ input[DOMMaker] {
 [DOMMaker="array"]::after {
   content: "]";
 }
-[DOMMaker] > p {
-  display: none;
+[DOMMaker] b[DOMMaker] {
+  color: var(--c4);
 }
 [DOMMaker] b[contenteditable]::before {
   content: "\"";
 }
 [DOMMaker] b[contenteditable]::after {
   content: "\":";
+}
+[DOMMaker] b[DOMMaker]::before {
+  content: "\"";
+}
+[DOMMaker] b[DOMMaker]::after {
+  content: "\",";
 }

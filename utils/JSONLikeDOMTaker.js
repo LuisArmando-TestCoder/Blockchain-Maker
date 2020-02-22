@@ -49,7 +49,7 @@ function getDataByType(type, container) {
     return ({
         object: {},
         array: [],
-        string: input && input.value,
+        string: input && input.innerText,
         number: input && +input.value,
         boolean: input && input.checked,
     })[type];
