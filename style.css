@@ -21,7 +21,7 @@ ol {
   color: var(--c3);
 }
 .JSONData {
-  background: var(--c3);
+  background: var(--c4);
   width: 100%;
   height: 0;
   border: 0;
@@ -40,6 +40,14 @@ ol {
   padding: 25px;
 }
 .JSONData-label {
+  bottom: 0;
+}
+.get-DOM-Maker-Data {
+  background: transparent;
+  border: 0;
+  top: 0;
+}
+.JSONData-label, .get-DOM-Maker-Data {
   font-family: var(--primary-font);
   color: var(--c3);
   text-shadow: 0 0 10px var(--c3);
@@ -47,18 +55,26 @@ ol {
   font-weight: bold;
   font-family: sans-serif;
   position: fixed;
-  bottom: 0;
-  right: 0;
   margin: 5px 25px;
   cursor: pointer;
+  right: 0;
 }
-.JSONData-label span {
+.JSONData-label span, .get-DOM-Maker-Data span {
   transition: 0.25s;
   position: relative;
   left: 0;
 }
 .JSONData-label:focus span,
-.JSONData-label:hover span {
+.JSONData-label:hover span,
+.get-DOM-Maker-Data:focus span,
+.get-DOM-Maker-Data:hover span {
+  display: inline-block;
+  left: 10px;
+}
+.JSONData-label:focus span,
+.JSONData-label:hover span,
+.get-DOM-Maker-Data:focus span,
+.get-DOM-Maker-Data:hover span {
   display: inline-block;
   left: 10px;
 }
@@ -80,62 +96,64 @@ b[contenteditable]:hover {
   text-decoration: underline;
 }
 select[DOMMaker] {
-  color: var(--c3);
+  color: var(--c4);
   background: transparent;
   border: 0;
 }
-input[DOMMaker] {
+select[DOMMaker] * {
   color: var(--c3);
+}
+input[DOMMaker] {
+  color: var(--c4);
   background: transparent;
   border: 0;
+}
+input[DOMMaker]::before {
+  content: "\"";
 }
 input[DOMMaker]::after {
   content: "\",";
 }
-input[DOMMaker='boolean']::after {
-  content: 'False,';
+input[DOMMaker="boolean"]::after {
+  content: "False\",";
 }
-input[DOMMaker='boolean']:checked::after {
-  content: 'True,';
+input[DOMMaker="boolean"]:checked::after {
+  content: "True\",";
 }
 [dommakertreelevel="0"] {
   padding-left: 0;
 }
-[DOMMaker="string"]::before,
-[DOMMaker="string"]::after {
-  content: "\",";
+[DOMMaker="object"]::before {
+  content: "{";
 }
-[DOMMaker='object']::before {
-  content: '{';
+[DOMMaker="object"]::after {
+  content: "}";
 }
-[DOMMaker='object']::after {
-  content: '}';
+[DOMMaker="array"]::before {
+  content: "[";
 }
-[DOMMaker='array']::before {
-  content: '[';
-}
-[DOMMaker='array']::after {
-  content: ']';
+[DOMMaker="array"]::after {
+  content: "]";
 }
 [DOMMaker] > p {
   display: none;
 }
-[DOMMaker='boolean'] {
+[DOMMaker="boolean"] {
   width: 0;
   cursor: pointer;
 }
-[DOMMaker='delete'] {
+[DOMMaker="delete"] {
   /* color: var(--3);
   background: var(--delete); */
 }
-[DOMMaker='duplicate'] {
+[DOMMaker="duplicate"] {
   /* background: var(--c1); */
 }
-[DOMMaker='delete'],
-[DOMMaker='duplicate'] {
+[DOMMaker="delete"],
+[DOMMaker="duplicate"] {
   /* display: block; */
 }
-[DOMMaker='array'] {
+[DOMMaker="array"] {
 }
 [DOMMaker] b[contenteditable]::before {
   content: "\"";

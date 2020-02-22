@@ -1,8 +1,8 @@
 import blockchain from './blockChainMaker.js';
 
-// const getDOMMakerDataButton = document.getElementById('getDOMMakerData');
+const getDOMMakerDataButton = document.getElementById('getDOMMakerData');
 const pushToBlockchainButton = document.getElementById('pushToBlockchain');
-// const JSONDataTextarea = document.getElementById('JSONData');
+const JSONDataTextarea = document.getElementById('JSONData');
 const blockchainDataTextarea = document.getElementById('blockchainData');
 
 function getDOMMakerInput(container) {
@@ -88,13 +88,13 @@ function JSONLikeDOMTaker(container, parentData) {
     return data;
 }
 
-// getDOMMakerDataButton.addEventListener('click', e => {
-//     const data = JSONLikeDOMTaker(
-//         document.querySelector('[DOMMaker]')
-//     );
-//     JSONDataTextarea.innerHTML = JSON.stringify(data, null, 4);
-//     JSONDataTextarea.focus();
-// });
+getDOMMakerDataButton.addEventListener('click', e => {
+    const data = JSONLikeDOMTaker(
+        document.querySelector('[DOMMaker]')
+    );
+    JSONDataTextarea.innerHTML = JSON.stringify(data, null, 4);
+    JSONDataTextarea.focus();
+});
 
 pushToBlockchainButton.addEventListener('click', e => {
     const data = JSONLikeDOMTaker(
