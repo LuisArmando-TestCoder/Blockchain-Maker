@@ -1,12 +1,24 @@
 :root {
   --c1: #010101;
-  --c2: #f0f0f0;
+  --c2: #010101;
   --c3: #0f0;
   --c4: #173;
   --primary-font: monospace;
   --delete: #f20;
   --primary-spacing: 25px;
   --background-image: url(https://images.pexels.com/photos/1019980/pexels-photo-1019980.jpeg?auto=compress&cs=tinysrgb&h=1250);
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--c1); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c3); 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c4); 
 }
 body * {
   box-sizing: border-box;
@@ -23,8 +35,39 @@ ol {
 textarea:focus + .get-DOM-Maker-Data {
   display: block;
 }
+li[DOMMakerTreeLevel] {
+  padding: 5px 0;
+}
+div[DOMMaker] {
+  padding-left: 44px;
+}
+button[DOMMaker] {
+  color: var(--c3);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+button[DOMMaker]:hover,
+input[DOMMaker]:hover,
+b[contenteditable]:hover {
+  text-decoration: underline;
+}
+select[DOMMaker] {
+  color: var(--c4);
+  background: transparent;
+  border: 0;
+}
+select[DOMMaker] * {
+  color: var(--c3);
+}
+input[DOMMaker] {
+  color: var(--c4);
+  background: transparent;
+  border: 0;
+  display: inline-block;
+}
 .JSONData {
-  color: var(--c1);
+  color: var(--c4);
   background: var(--c2);
   width: 100%;
   height: 0;
@@ -78,37 +121,6 @@ textarea:focus + .get-DOM-Maker-Data {
   display: inline-block;
   left: 10px;
 }
-li[DOMMakerTreeLevel] {
-  padding: 5px 0;
-}
-div[DOMMaker] {
-  padding-left: 44px;
-}
-button[DOMMaker] {
-  color: var(--c3);
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-}
-button[DOMMaker]:hover,
-input[DOMMaker]:hover,
-b[contenteditable]:hover {
-  text-decoration: underline;
-}
-select[DOMMaker] {
-  color: var(--c4);
-  background: transparent;
-  border: 0;
-}
-select[DOMMaker] * {
-  color: var(--c3);
-}
-input[DOMMaker] {
-  color: var(--c4);
-  background: transparent;
-  border: 0;
-  display: inline-block;
-}
 [DOMMaker] > p {
   display: none;
 }
@@ -127,9 +139,6 @@ input[DOMMaker] {
 }
 [DOMMaker="string"]::after {
   content: "\",";
-}
-[dommakertreelevel="0"] {
-  padding-left: 0;
 }
 [DOMMaker="object"]::before {
   content: "{";
@@ -157,4 +166,7 @@ input[DOMMaker] {
 }
 [DOMMaker] b[DOMMaker]::after {
   content: "\",";
+}
+[DOMMakerTreeLevel="0"] {
+  padding-left: 0;
 }
