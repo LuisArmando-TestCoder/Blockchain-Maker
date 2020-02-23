@@ -88,15 +88,14 @@ function JSONLikeDOMTaker(container, parentData) {
     return data;
 }
 
-getDOMMakerDataButton.addEventListener('click', e => {
+JSONDataTextarea.addEventListener('focus', e => {
     const data = JSONLikeDOMTaker(
         document.querySelector('[DOMMaker]')
     );
     JSONDataTextarea.innerHTML = JSON.stringify(data, null, 4);
-    JSONDataTextarea.focus();
 });
 
-pushToBlockchainButton.addEventListener('click', e => {
+blockchainDataTextarea.addEventListener('focus', e => {
     const data = JSONLikeDOMTaker(
         document.querySelector('[DOMMaker]')
     );

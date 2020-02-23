@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <button id="getDOMMakerData" class="get-DOM-Maker-Data">
-      Preview JSON Data <span>&#10148;</span>
-    </button>
-    <ul DOMMaker="object" DOMMakerTreeLevel="0"></ul>
     <textarea id="JSONData" class="JSONData" readonly></textarea>
-    <label for="blockchainData" id="pushToBlockchain" class="JSONData-label">
+    <textarea id="blockchainData" class="JSONData" readonly></textarea>
+    <label id="pushToBlockchain" for="blockchainData" class="get-DOM-Maker-Data get-DOM-Maker-Data--right">
       Push data to blockchain <span>&#10148;</span>
     </label>
-    <textarea id="blockchainData" class="JSONData" readonly></textarea>
+    <label id="getDOMMakerData" for="JSONData" class="get-DOM-Maker-Data get-DOM-Maker-Data--left">
+      Preview JSON Data <span>&#10148;</span>
+    </label>
+    <ul DOMMaker="object" DOMMakerTreeLevel="0"></ul>
     <script type="module" src="main.js"></script>
   </body>
 </html>

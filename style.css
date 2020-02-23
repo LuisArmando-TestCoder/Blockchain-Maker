@@ -20,6 +20,9 @@ ol {
   list-style: none;
   color: var(--c3);
 }
+textarea:focus + .get-DOM-Maker-Data {
+  display: block;
+}
 .JSONData {
   color: var(--c1);
   background: var(--c2);
@@ -36,30 +39,27 @@ ol {
   height: 50vh;
   padding: 25px;
 }
-.JSONData:focus {
-  height: 50vh;
-  padding: 25px;
-}
-.JSONData-label {
-  bottom: 0;
-}
 .get-DOM-Maker-Data {
   background: transparent;
-  border: 0;
-  top: 0;
-}
-.JSONData-label, .get-DOM-Maker-Data {
   color: var(--c3);
   text-shadow: 0 0 10px var(--c3);
   text-transform: uppercase;
   font-weight: bold;
   font-family: sans-serif;
-  position: fixed;
+  position: sticky;
   margin: 5px 25px;
   cursor: pointer;
+  border: 0;
+  top: 0;
+  float: right;
+}
+.get-DOM-Maker-Data--left {
+  left: 0;
+}
+.get-DOM-Maker-Data--right {
   right: 0;
 }
-.JSONData-label span, .get-DOM-Maker-Data span {
+.get-DOM-Maker-Data span {
   transition: 0.25s;
   position: relative;
   left: 0;
